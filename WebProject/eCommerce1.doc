@@ -1,0 +1,88 @@
+-- Reference  https://dev.to/ezzdinatef/ecommerce-database-design-1ggc
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+
+
+Table users {
+  id integer [primary key]
+  avatar varchar
+  first_name varchar
+  last_name varchar
+  username varchar [not null, unique]
+  email varchar [not null, unique]
+  password varchar
+  birth_of_date date
+  phone_number varchar
+}
+
+Table addresses {
+  id integer [primary key]
+  user_id integer
+  title varchar
+  address_line_1 varchar
+  address_line_2 varchar
+  country varchar
+  city varchar
+  postal_code varchar
+  landmark varchar
+  phone_number varchar
+}
+
+Table categories {
+  id integer [primary key]
+  name varchar
+  description varchar
+}
+
+Table products {
+  id integer [primary key]
+  name varchar
+  description varchar
+  summary varchar
+  cover varchar
+  category_id varchar
+}
+
+Table products_skus {
+  id integer [primary key]
+  product_id integer
+  size_attribute_id integer
+  color_attribute_id integer
+  sku varchar
+  price varchar
+  quantity integer
+}
+
+
+Table cart {
+  id integer [primary key]
+  user_id integer
+  total integer
+}
+
+Table cart_item {
+  id integer [primary key]
+  cart_id integer
+  product_id integer
+  products_sku_id integer
+  quantity integer
+}
+
+
+
+
+Ref: addresses.user_id > users.id 
+
+Ref: products.category_id <> categories.id
+Ref: products_skus.product_id > products.id
+
+
+Ref: cart.user_id - users.id
+Ref: cart_item.cart_id > cart.id
+Ref: cart_item.product_id <> products.id
+Ref: cart_item.products_sku_id <> products_skus.id
+
+
+
+// Ref: "products_skus"."id" < "products_skus"."product_id"
