@@ -49,8 +49,8 @@ CREATE TABLE products (
 CREATE TABLE products_skus (
   id INT AUTO_INCREMENT PRIMARY KEY,
   product_id INT NOT NULL,
-  size_attribute_id INT,
-  color_attribute_id INT,
+  size VARCHAR(100),
+  color VARCHAR(100),
   sku VARCHAR(100) UNIQUE,
   price DECIMAL(10,2) NOT NULL,
   quantity INT DEFAULT 0,
